@@ -1,0 +1,10 @@
+emb_name: 'random'
+task_name: "expression/pert-prediction-norman-regression"
+cell_line: "K-562"
+
+hydra:
+  sweeper:
+    max_batch_size: 20
+    params:
+      +fold_id: 0,1,2,3,4
+      +estimator_name: "'context mean','no change'"

@@ -1,0 +1,3 @@
+# Params for WandB
+_target_: lightning.pytorch.loggers.WandbLogger
+reinit: "finish_previous"

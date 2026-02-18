@@ -1,0 +1,122 @@
+datamodule:
+  condition_encoders:
+    - _target_: data.encoders.TensorLabelEncoder
+      key_added: "cell_line_label"
+      required_key: "cell_line"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "ChemBERTa-77M-MLM"
+      required_key: "pert_id"
+      adata_path: "sciplex/sciplex_drug_embeddings.h5ad"
+      embedding_name: "ChemBERTa-77M-MLM"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "ChemBERTa-77M-MTR"
+      required_key: "pert_id"
+      adata_path: "sciplex/sciplex_drug_embeddings.h5ad"
+      embedding_name: "ChemBERTa-77M-MTR"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "cats3D"
+      required_key: "pert_id"
+      adata_path: "sciplex/sciplex_drug_embeddings.h5ad"
+      embedding_name: "cats3D"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "topological"
+      required_key: "pert_id"
+      adata_path: "sciplex/sciplex_drug_embeddings.h5ad"
+      embedding_name: "topological"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "avalon"
+      required_key: "pert_id"
+      adata_path: "sciplex/sciplex_drug_embeddings.h5ad"
+      embedding_name: "avalon"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "erg"
+      required_key: "pert_id"
+      adata_path: "sciplex/sciplex_drug_embeddings.h5ad"
+      embedding_name: "erg"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "fcfp"
+      required_key: "pert_id"
+      adata_path: "sciplex/sciplex_drug_embeddings.h5ad"
+      embedding_name: "fcfp"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "maccs"
+      required_key: "pert_id"
+      adata_path: "sciplex/sciplex_drug_embeddings.h5ad"
+      embedding_name: "maccs"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "secfp"
+      required_key: "pert_id"
+      adata_path: "sciplex/sciplex_drug_embeddings.h5ad"
+      embedding_name: "secfp"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "chatgpt"
+      required_key: "pert_id"
+      adata_path: "sciplex/sciplex_drug_embeddings.h5ad"
+      embedding_name: "chatgpt"
+
+fusion_model:
+  input_transforms:
+    - _target_: model.input.LinearInputTransform
+      input_dim: 384
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "ChemBERTa-77M-MLM"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 384
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "ChemBERTa-77M-MTR"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 126
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "cats3D"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 2000
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "topological"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 2000
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "avalon"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 315
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "erg"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 2000
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "fcfp"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 167
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "maccs"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 2000
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "secfp"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 1536
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "chatgpt"
+      normalize_type: "none"
+    - _target_: model.input.EmbeddingInputTransform
+      num_embeddings: 3
+      embedding_dim: ${d_model}
+      input_key: "cell_line_label"

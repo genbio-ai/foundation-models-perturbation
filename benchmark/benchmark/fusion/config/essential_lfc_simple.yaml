@@ -1,0 +1,58 @@
+defaults:
+  - embs/essential_simple@_here_
+  - trainer: lfc_trainer
+  - wandb_logger: default_logger
+  - _self_
+
+d_model: 100
+output_layers: 0
+n_attn_heads: 5
+n_attn_layers: 4
+batch_size: 64
+lr: 0.0009931092550184934
+dropout: 0
+use_cell_line_autoencoder: false
+use_layer_norm: false
+
+wandb_logger:
+  project: "essential-fusion"
+
+datamodule:
+  _target_: data.datamodules.LeaderboardSplitDataModule
+  dataset_type: "essential_lfc"
+  fold: 0
+  split_key: "gene_id"
+  batch_size: ${batch_size}
+  num_workers: 25
+  validation_split_ratio: 0.2
+  seed: 42
+
+fusion_model:
+  _target_: model.fusion.FusionModel
+  task:
+    _target_: model.tasks.PseudobulkRegressionTask
+    target_key: "pseudobulk_delta"
+    input_dim: ${d_model}
+    n_hidden_layers: ${output_layers}
+    hidden_dim: 400
+    output_dim: 6640  # number of genes
+    dropout: ${dropout}
+    use_gelu: true
+    xavier_init: true
+    sum_inputs: true
+    cls_alone: true
+  learning_rate: ${lr}
+  warmup_epochs: 5
+  d_model: ${d_model}
+  n_heads: ${n_attn_heads}
+  n_layers: ${n_attn_layers}
+  use_gate: false
+  use_gelu: true
+  xavier_init: true
+  reconstruction_weight: 0
+  autoencoder_weight: 0
+  dropout: ${dropout}
+  contextualize_cell_line: false
+  final_layer_cls: false
+  modal_drop_prob: 0
+  add_cell_line_to_tokens: true

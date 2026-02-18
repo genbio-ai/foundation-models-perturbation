@@ -1,0 +1,46 @@
+model: 
+  C: 1e5
+  balance_loss: true
+estimator_name: "logistic_regression"
+task_name: "expression/pert-prediction-essential-deg"
+
+hydra:
+  sweeper:
+    max_batch_size: 20
+    params:
+      +fold_id: 0,1,2,3,4
+      +cell_line: "'K-562','Jurkat','hTERT-RPE1','Hep-G2'"
+      +emb_name: "
+        'random',
+        'pca',
+        'PCA_Fair_essential_CELL_LINE_controls_(D=128)',
+        'KG_WaveGC_G_StringDB_combined_0.0_(D=128)',
+        'AIDO.Cell_100M_positional_(D=640)',
+        'AIDO.Cell_10M_positional_(D=256)',
+        'AIDO.Cell_3M_positional_(D=128)',
+        'AIDOcell_100M_essential_CELL_LINE_2025_11_26_(D=640)',
+        'AIDOcell_10M_essential_CELL_LINE_2025_11_26_(D=256)',
+        'AIDOcell_3M_essential_CELL_LINE_2025_11_26_(D=128)',
+        'AIDOdna_(D=4352)',
+        'AIDOprot_first_(D=384)',
+        'AIDOprot_mean_(D=384)',
+        'AIDOprot_seq+struct_(D=1024)',
+        'DepMap_Gene_Effect_(D=318)',
+        'ESM2_(D=1280)',
+        'GenotypeVAE_(D=256)',
+        'RAG-16B_Human_Protein_Embedding_with_structure_mean_pooled_(D=2304)',
+        'RAG-16B_Human_Protein_Embedding_without_structure_mean_pooled_(D=2304)',
+        'STRING_Spectral_Medium_Conf_(D=128)',
+        'STRING_network_(D=512)',
+        'STRING_sequence_(D=1024)',
+        'TranscriptFormer_essential_CELL_LINE_controls_(D=2048)',
+        'scGPT_essential_CELL_LINE_controls_(D=512)',
+        'scGenePT_GO_BP_(D=1536)',
+        'scGenePT_GO_CC_(D=1536)',
+        'scGenePT_GO_MF_(D=1536)',
+        'scGenePT_GO_all_(D=1536)',
+        'scGenePT_NCBI+UniProt_(D=1536)',
+        'scGenePT_NCBI_(D=1536)',
+        'scPRINT_essential_CELL_LINE_controls_(D=512)',
+        'Geneformer_essential_CELL_LINE_controls_(D=512)',
+        'GNN_Simple_Official_(D=256)'"

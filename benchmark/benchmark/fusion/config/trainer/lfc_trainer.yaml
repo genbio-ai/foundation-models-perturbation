@@ -1,0 +1,20 @@
+# Lightning trainer
+_target_: lightning.Trainer
+callbacks:
+  - _target_: model.callbacks.FitStatisticsCallback
+  - _target_: lightning.pytorch.callbacks.EarlyStopping
+    patience: 25
+    monitor: "val_loss"
+    mode: "min"
+  - _target_: lightning.pytorch.callbacks.ModelCheckpoint
+    monitor: "val_loss"
+    mode: "min"
+    save_top_k: 1
+    filename: "best-{epoch:02d}-{val_loss:.4f}"
+  - _target_: lightning.pytorch.callbacks.LearningRateMonitor
+    logging_interval: "step"
+  - _target_: lightning.pytorch.callbacks.ModelSummary
+    max_depth: 1
+max_epochs: 75  # warmup epochs defined in the model
+gradient_clip_val: 1
+log_every_n_steps: 25

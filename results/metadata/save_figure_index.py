@@ -1,0 +1,547 @@
+import json
+import seaborn as sns
+
+fig_index = {}
+
+''' Advanced Methods '''
+fig_index['advanced_methods'] = {
+
+    # Negative Controls
+    "context mean baseline": ("Train Mean", "Negative Control"),
+    "no change baseline": ("No Change", "Negative Control"),
+    "HEAD_TYPE_baseline_random": ("Random Embeddings", "Negative Control"),
+
+    # Advanced
+    "GEARS": ("GEARS", "Advanced"),
+    "Flow_V1": ("Flow Matching (PCA 128)", "Advanced"),
+    "Flow_R2": ("Flow Matching (PCA 50)", "Advanced"),
+    "Latent Diffusion": ("Latent Diffusion (PCA 50)", "Advanced"),
+    "Schrödinger Bridge": ("Schrödinger Bridge (PCA 50)", "Advanced"),
+
+    # Prior Knowledge
+    "HEAD_TYPE_baseline_KG_WaveGC_G_StringDB_combined_0.0_(D=128)": ("STRING WaveGC", "Prior Knowledge"),
+
+    # Positive Controls
+    "Experimental error (quantile 0.9)": ("Experimental Error", "Positive Control"),
+    "HEAD_TYPE_baseline_pca": ("Idealized Baseline", "Positive Control"),
+}
+
+''' Norman LFC '''
+fig_index['norman_lfc'] = {
+
+    # Negative Controls
+    "context mean baseline": ("Train Mean", "Negative Control"),
+    "no change baseline": ("No Change", "Negative Control"),
+    "HEAD_TYPE_baseline_random": ("Random Embeddings", 'Negative Control'),
+
+    # DNA
+    "HEAD_TYPE_baseline_AIDOdna_(D=4352)": ("AIDO.DNA", "DNA"),
+
+    # Protein
+    "HEAD_TYPE_baseline_AIDOprot_mean_(D=384)": ("AIDO.StructureTokenizer", "Protein"),
+    "HEAD_TYPE_baseline_AIDOprot_seq+struct_(D=1024)": ("AIDO.ProteinIF-16B", "Protein"),
+    "HEAD_TYPE_baseline_ESM2_(D=1280)": ("ESM2", "Protein"),
+    "HEAD_TYPE_baseline_RAG-16B_Human_Protein_Embedding_with_structure_mean_pooled_(D=2304)": ("AIDO.ProteinRAG 16B (w/ structure)", "Protein"),
+    "HEAD_TYPE_baseline_RAG-16B_Human_Protein_Embedding_without_structure_mean_pooled_(D=2304)": ("AIDO.ProteinRAG 16B", "Protein"),
+    "HEAD_TYPE_baseline_STRING_sequence_(D=1024)": ("STRING Sequence", "Protein"),
+
+    # Expression
+    "HEAD_TYPE_baseline_TranscriptFormer_Norman_K-562_controls_(D=2048)": ("TranscriptFormer", "Expression"),
+    "HEAD_TYPE_baseline_AIDO.Cell_3M_positional_(D=128)": ("Positional", "Expression"),
+    "HEAD_TYPE_baseline_AIDOcell_3M_Norman_Aligned_(D=128)": ("AIDO.Cell 3M", "Expression"),
+    "HEAD_TYPE_baseline_AIDOcell_10M_Norman_Aligned_(D=256)": ("AIDO.Cell 10M", "Expression"),
+    "HEAD_TYPE_baseline_AIDOcell_100M_Norman_Aligned_(D=640)": ("AIDO.Cell 100M", "Expression"),
+    "HEAD_TYPE_baseline_scPRINT_Norman_K-562_controls_(D=512)": ("scPRINT", "Expression"),
+
+    # Prior Knowledge - Language
+    "HEAD_TYPE_baseline_scGenePT_GO_BP_(D=1536)": ("GenePT (GO_BP)", "Prior Knowledge"),
+    "HEAD_TYPE_baseline_scGenePT_GO_CC_(D=1536)": ("GenePT (GO_CC)", "Prior Knowledge"),
+    "HEAD_TYPE_baseline_scGenePT_GO_MF_(D=1536)": ("GenePT (GO_MF)", "Prior Knowledge"),
+    "HEAD_TYPE_baseline_scGenePT_GO_all_(D=1536)": ("GenePT (GO_all)", "Prior Knowledge"),
+    "HEAD_TYPE_baseline_scGenePT_NCBI+UniProt_(D=1536)": ("GenePT (NCBI+UniProt)", "Prior Knowledge"),
+    "HEAD_TYPE_baseline_scGenePT_NCBI_(D=1536)": ("GenePT (NCBI)", "Prior Knowledge"),
+
+    # Prior knowledge (other)
+    "HEAD_TYPE_baseline_DepMap_Gene_Effect_(D=318)": ("DepMap (Gene Effect)", "Prior Knowledge"),
+    "HEAD_TYPE_baseline_GenotypeVAE_(D=256)": ("GenotypeVAE", "Prior Knowledge"),
+
+    # Prior Knowledge - Network
+    'HEAD_TYPE_baseline_KG_WaveGC_G_StringDB_combined_0.0_(D=128)': ('STRING WaveGC', 'Prior Knowledge'),
+    "HEAD_TYPE_baseline_STRING_Spectral_Medium_Conf_(D=128)": ("STRING Spectral", "Prior Knowledge"),
+    "HEAD_TYPE_baseline_STRING_network_(D=512)": ("STRING Network", "Prior Knowledge"),
+
+    # Positive Controls
+    "HEAD_TYPE_baseline_pca": ("Idealized Baseline", "Positive Control"),
+    "Experimental error (quantile 0.9)": ("Experimental Error", "Positive Control"),
+}
+
+''' Essential LFC '''
+fig_index['essential_lfc'] = {
+
+    # Negative Controls
+    "context mean baseline": ("Train Mean", "Negative Control"),
+    "no change baseline": ("No Change", "Negative Control"),
+    "HEAD_TYPE_baseline_PCA_Fair_essential_CELL_LINE_controls_(D=128)": ("PCA", 'Negative Control'),
+    "HEAD_TYPE_baseline_random": ("Random Embeddings", 'Negative Control'),
+
+    # DNA
+    "HEAD_TYPE_baseline_AIDOdna_(D=4352)": ("AIDO.DNA", "DNA"),
+
+    # Protein
+    "HEAD_TYPE_baseline_AIDOprot_mean_(D=384)": ("AIDO.StructureTokenizer", "Protein"),
+    "HEAD_TYPE_baseline_AIDOprot_seq+struct_(D=1024)": ("AIDO.ProteinIF-16B", "Protein"),
+    "HEAD_TYPE_baseline_ESM2_(D=1280)": ("ESM2", "Protein"),
+    "HEAD_TYPE_baseline_RAG-16B_Human_Protein_Embedding_with_structure_mean_pooled_(D=2304)": ("AIDO.ProteinRAG 16B (w/ structure)", "Protein"),
+    "HEAD_TYPE_baseline_RAG-16B_Human_Protein_Embedding_without_structure_mean_pooled_(D=2304)": ("AIDO.ProteinRAG 16B", "Protein"),
+    "HEAD_TYPE_baseline_STRING_sequence_(D=1024)": ("STRING Sequence", "Protein"),
+
+    # Expression
+    "HEAD_TYPE_baseline_TranscriptFormer_essential_CELL_LINE_controls_(D=2048)": ("TranscriptFormer", "Expression"),
+    "HEAD_TYPE_baseline_Geneformer_essential_CELL_LINE_controls_(D=512)": ("Geneformer", "Expression"),
+    "HEAD_TYPE_baseline_AIDO.Cell_3M_positional_(D=128)": ("Positional", "Expression"),
+    "HEAD_TYPE_baseline_AIDOcell_3M_essential_CELL_LINE_2025_11_26_(D=128)": ("AIDO.Cell 3M", "Expression"),
+    "HEAD_TYPE_baseline_AIDOcell_10M_essential_CELL_LINE_2025_11_26_(D=256)": ("AIDO.Cell 10M", "Expression"),
+    "HEAD_TYPE_baseline_AIDOcell_100M_essential_CELL_LINE_2025_11_26_(D=640)": ("AIDO.Cell 100M", "Expression"),
+    "HEAD_TYPE_baseline_scGPT_essential_CELL_LINE_controls_(D=512)": ("scGPT", "Expression"),
+    "HEAD_TYPE_baseline_scPRINT_essential_CELL_LINE_controls_(D=512)": ("scPRINT", "Expression"),
+
+    # Prior Knowledge - Language
+    "HEAD_TYPE_baseline_scGenePT_GO_BP_(D=1536)": ("GenePT (GO_BP)", "Prior Knowledge"),
+    "HEAD_TYPE_baseline_scGenePT_GO_CC_(D=1536)": ("GenePT (GO_CC)", "Prior Knowledge"),
+    "HEAD_TYPE_baseline_scGenePT_GO_MF_(D=1536)": ("GenePT (GO_MF)", "Prior Knowledge"),
+    "HEAD_TYPE_baseline_scGenePT_GO_all_(D=1536)": ("GenePT (GO_all)", "Prior Knowledge"),
+    "HEAD_TYPE_baseline_scGenePT_NCBI+UniProt_(D=1536)": ("GenePT (NCBI+UniProt)", "Prior Knowledge"),
+    "HEAD_TYPE_baseline_scGenePT_NCBI_(D=1536)": ("GenePT (NCBI)", "Prior Knowledge"),
+
+    # Prior knowledge (other)
+    "HEAD_TYPE_baseline_DepMap_Gene_Effect_(D=318)": ("DepMap (Gene Effect)", "Prior Knowledge"),
+    "HEAD_TYPE_baseline_GenotypeVAE_(D=256)": ("GenotypeVAE", "Prior Knowledge"),
+
+    # Prior Knowledge - Network
+    'HEAD_TYPE_baseline_KG_WaveGC_G_StringDB_combined_0.0_(D=128)': ('STRING WaveGC', 'Prior Knowledge'),
+    'HEAD_TYPE_baseline_GNN_Simple_Official_(D=256)': ('STRING GNN', 'Prior Knowledge'),
+    "HEAD_TYPE_baseline_STRING_Spectral_Medium_Conf_(D=128)": ("STRING Spectral", "Prior Knowledge"),
+    "HEAD_TYPE_baseline_STRING_network_(D=512)": ("STRING Network", "Prior Knowledge"),
+
+    # Positive Controls
+    "HEAD_TYPE_baseline_pca": ("Idealized Baseline", "Positive Control"),
+    "Experimental error (quantile 0.9)": ("Experimental Error", "Positive Control"),
+
+}
+
+''' Essential DEG '''
+fig_index['essential_deg'] = {
+
+    # Negative Controls
+    "prior": ("Train Mean", "Negative Control"),
+    "no_change": ("No Change", "Negative Control"),
+    "random": ("Random Embeddings", 'Negative Control'),
+
+    # DNA
+    "AIDOdna_(D=4352)": ("AIDO.DNA", "DNA"),
+
+    # Protein
+    "AIDOprot_mean_(D=384)": ("AIDO.StructureTokenizer", "Protein"),
+    "AIDOprot_seq+struct_(D=1024)": ("AIDO.ProteinIF-16B", "Protein"),
+    "ESM2_(D=1280)": ("ESM2", "Protein"),
+    "RAG-16B_Human_Protein_Embedding_with_structure_mean_pooled_(D=2304)": ("AIDO.ProteinRAG 16B (w/ structure)", "Protein"),
+    "RAG-16B_Human_Protein_Embedding_without_structure_mean_pooled_(D=2304)": ("AIDO.ProteinRAG 16B", "Protein"),
+    "STRING_sequence_(D=1024)": ("STRING Sequence", "Protein"),
+
+    # Expression
+    "TranscriptFormer_essential_CELL_LINE_controls_(D=2048)": ("TranscriptFormer", "Expression"),
+    "Geneformer_essential_CELL_LINE_controls_(D=512)": ("Geneformer", "Expression"),
+    "AIDO.Cell_3M_positional_(D=128)": ("Positional", "Expression"),
+    "AIDOcell_3M_essential_CELL_LINE_2025_11_26_(D=128)": ("AIDO.Cell 3M", "Expression"),
+    "AIDOcell_10M_essential_CELL_LINE_2025_11_26_(D=256)": ("AIDO.Cell 10M", "Expression"),
+    "AIDOcell_100M_essential_CELL_LINE_2025_11_26_(D=640)": ("AIDO.Cell 100M", "Expression"),
+    "scGPT_essential_CELL_LINE_controls_(D=512)": ("scGPT", "Expression"),
+    "scPRINT_essential_CELL_LINE_controls_(D=512)": ("scPRINT", "Expression"),
+
+    # Prior Knowledge - Language
+    "scGenePT_GO_BP_(D=1536)": ("GenePT (GO_BP)", "Prior Knowledge"),
+    "scGenePT_GO_CC_(D=1536)": ("GenePT (GO_CC)", "Prior Knowledge"),
+    "scGenePT_GO_MF_(D=1536)": ("GenePT (GO_MF)", "Prior Knowledge"),
+    "scGenePT_GO_all_(D=1536)": ("GenePT (GO_all)", "Prior Knowledge"),
+    "scGenePT_NCBI+UniProt_(D=1536)": ("GenePT (NCBI+UniProt)", "Prior Knowledge"),
+    "scGenePT_NCBI_(D=1536)": ("GenePT (NCBI)", "Prior Knowledge"),
+
+    # Prior knowledge (other)
+    "DepMap_Gene_Effect_(D=318)": ("DepMap (Gene Effect)", "Prior Knowledge"),
+    "GenotypeVAE_(D=256)": ("GenotypeVAE", "Prior Knowledge"),
+
+    # Prior Knowledge - Network
+    'KG_WaveGC_G_StringDB_combined_0.0_(D=128)': ('STRING WaveGC', 'Prior Knowledge'),
+    'GNN_Simple_Official_(D=256)': ('STRING GNN', 'Prior Knowledge'),
+    "STRING_Spectral_Medium_Conf_(D=128)": ("STRING Spectral", "Prior Knowledge"),
+    "STRING_network_(D=512)": ("STRING Network", "Prior Knowledge"),
+
+    # Positive Controls
+    "pca": ("Idealized Baseline", "Positive Control"),
+    "Experimental error (quantile 0.1)": ("Experimental Error", "Positive Control"),
+
+    # Fusion
+    "Fusion_essential_deg_14_01_2026": ("Simple Fusion", "Fusion"),
+
+}
+
+''' Sciplex LFC '''
+fig_index['sciplex_lfc'] = {
+    
+    # Negative Controls
+    "context mean baseline": ("Train Mean", "Negative Control"),
+    "no change baseline": ("No Change", "Negative Control"),
+    "HEAD_TYPE_baseline_random": ("Random Embeddings", "Negative Control"),
+    
+    # SMILES
+    "HEAD_TYPE_baseline_ChemBERTa-77M-MLM": ("ChemBERTa-77M-MLM", "SMILES Transformer"),
+    "HEAD_TYPE_baseline_ChemBERTa-77M-MTR": ("ChemBERTa-77M-MTR", "SMILES Transformer"),
+    
+    # LLM
+    "HEAD_TYPE_baseline_chatgpt": ("ChatGPT", "LLM"),
+    
+    # Structure encodings
+    "HEAD_TYPE_baseline_maccs": ("MACCS", "Molecule Structure"),
+    "HEAD_TYPE_baseline_topological": ("Topological", "Molecule Structure"),
+    "HEAD_TYPE_baseline_secfp": ("SECFP", "Molecule Structure"),
+    "HEAD_TYPE_baseline_avalon": ("Avalon", "Molecule Structure"),
+    "HEAD_TYPE_baseline_erg": ("ErG", "Molecule Structure"),
+
+    # Positive Controls
+    "HEAD_TYPE_baseline_pca": ("Idealized Baseline", "Positive Control"),
+    "Experimental error (quantile 0.9)": ("Experimental Error", "Positive Control"),
+
+}
+
+''' Sciplex DEG '''
+fig_index['sciplex_deg'] = {
+
+    # Negative Controls
+    "prior": ("Train Mean", "Negative Control"),
+    "no_change": ("No Change", "Negative Control"),
+    "random": ("Random Embeddings", "Negative Control"),
+    
+    # SMILES
+    "ChemBERTa-77M-MLM": ("ChemBERTa-77M-MLM", "SMILES Transformer"),
+    "ChemBERTa-77M-MTR": ("ChemBERTa-77M-MTR", "SMILES Transformer"),
+    
+    # LLM
+    "chatgpt": ("ChatGPT", "LLM"),
+    
+    # Structure encodings
+    "maccs": ("MACCS", "Molecule Structure"),
+    "topological": ("Topological", "Molecule Structure"),
+    "secfp": ("SECFP", "Molecule Structure"),
+    "avalon": ("Avalon", "Molecule Structure"),
+    "erg": ("ErG", "Molecule Structure"),
+    
+    # Positive Controls
+    "pca": ("Idealized Baseline", "Positive Control"),
+    "experimental_error": ("Experimental Error", "Positive Control"),
+
+    # Fusion
+    "Fusion_sciplex_deg_13_01_2026": ("Simple Fusion", "Fusion"),
+
+}
+
+''' Tahoe LFC '''
+fig_index['tahoe_lfc'] = {
+
+    # Negative Controls
+    "context mean baseline": ("Train Mean", "Negative Control"),
+    "no change baseline": ("No Change", "Negative Control"),
+    "HEAD_TYPE_baseline_random": ("Random Embeddings", "Negative Control"),
+
+    # SMILES
+    "HEAD_TYPE_baseline_ChemBERTa-77M-MLM": ("ChemBERTa-77M-MLM", "SMILES Transformer"),
+    "HEAD_TYPE_baseline_ChemBERTa-77M-MTR": ("ChemBERTa-77M-MTR", "SMILES Transformer"),
+    "HEAD_TYPE_baseline_MiniMol": ("MiniMol", "SMILES Transformer"),
+    "HEAD_TYPE_baseline_MolT5": ("MolT5", "SMILES Transformer"),
+    
+    # Boltz
+    "HEAD_TYPE_baseline_boltz_affinity_pred_value_fragment": ("Boltz (Fragment)", "Protein Affinity"),
+    "HEAD_TYPE_baseline_boltz_affinity_pred_value_protein": ("Boltz (Protein)", "Protein Affinity"),
+    "HEAD_TYPE_baseline_boltz_affinity_probability_binary_fragment": ("Boltz Binding Probability (Fragment)", "Protein Affinity"),
+    "HEAD_TYPE_baseline_boltz_affinity_probability_binary_protein": ("Boltz Binding Probability (Protein)", "Protein Affinity"),
+
+    # LLM
+    "HEAD_TYPE_baseline_chatgpt": ("ChatGPT", "LLM"),
+
+    # Structure encodings
+    "HEAD_TYPE_baseline_maccs": ("MACCS", "Molecule Structure"),
+    "HEAD_TYPE_baseline_topological": ("Topological", "Molecule Structure"),
+    "HEAD_TYPE_baseline_secfp": ("SECFP", "Molecule Structure"),
+    "HEAD_TYPE_baseline_ecfp:2": ("ECFP:2", "Molecule Structure"),
+    "HEAD_TYPE_baseline_avalon": ("Avalon", "Molecule Structure"),
+    "HEAD_TYPE_baseline_erg": ("ErG", "Molecule Structure"),
+    "HEAD_TYPE_baseline_unimol2-570m-H": ("Uni-Mol2 (570M-H)", "Molecule Structure"),
+
+    # Targets
+    "HEAD_TYPE_baseline_scPRINT_Norman_K-562_controls_(D=512)_concat": ("scPRINT - Norman", "Gene Target"),
+    "HEAD_TYPE_baseline_TranscriptFormer_Norman_K-562_controls_(D=2048)_concat": ("TranscriptFormer - Norman", "Gene Target"),
+    "HEAD_TYPE_baseline_AIDOcell_100M_Norman_Aligned_(D=640)_concat": ("AIDO.Cell 100M - Norman", "Gene Target"),
+    "HEAD_TYPE_baseline_gene_targets_confidence_name_only": ("Targets Weighted (Name)", "Gene Target"),
+    "HEAD_TYPE_baseline_gene_targets_confidence_with_pubchem": ("Targets Weighted (Name, PubChem)", "Gene Target"),
+    "HEAD_TYPE_baseline_gene_targets_binary_name_only": ("Targets Binary (Name)", "Gene Target"),
+    "HEAD_TYPE_baseline_gene_targets_binary_with_pubchem": ("Targets Binary (Name, PubChem)", "Gene Target"),
+
+    # Positive Controls
+    "HEAD_TYPE_baseline_pca": ("Idealized Baseline", "Positive Control"),
+    "Experimental error (quantile 0.9)": ("Experimental Error", "Positive Control"),
+    
+}
+
+''' Tahoe DEG '''
+fig_index['tahoe_deg'] = {
+
+    # Negative Controls
+    "prior": ("Train Mean", "Negative Control"),
+    "no_change": ("No Change", "Negative Control"),
+    "random": ("Random Embeddings", "Negative Control"),
+    
+    # SMILES
+    "ChemBERTa-77M-MLM": ("ChemBERTa-77M-MLM", "SMILES Transformer"),
+    "ChemBERTa-77M-MTR": ("ChemBERTa-77M-MTR", "SMILES Transformer"),
+    "MiniMol": ("MiniMol", "SMILES Transformer"),
+    "MolT5": ("MolT5", "SMILES Transformer"),
+    
+    # Boltz
+    "boltz_affinity_pred_value_fragment": ("Boltz (Fragment)", "Protein Affinity"),
+    "boltz_affinity_pred_value_protein": ("Boltz (Protein)", "Protein Affinity"),
+    
+    # LLM
+    "chatgpt": ("ChatGPT", "LLM"),
+    
+    # Structure encodings
+    "maccs": ("MACCS", "Molecule Structure"),
+    "topological": ("Topological", "Molecule Structure"),
+    "secfp": ("SECFP", "Molecule Structure"),
+    "ecfp:2": ("ECFP:2", "Molecule Structure"),
+    "avalon": ("Avalon", "Molecule Structure"),
+    "erg": ("ErG", "Molecule Structure"),
+    "unimol2-570m-H": ("Uni-Mol2 (570M-H)", "Molecule Structure"),
+    
+    # Targets
+    "scPRINT_Norman_K-562_controls_(D=512)_concat": ("scPRINT - Norman", "Gene Target"),
+    "TranscriptFormer_Norman_K-562_controls_(D=2048)_concat": (
+        "TranscriptFormer - Norman",
+        "Gene Target",
+    ),
+    "AIDOcell_100M_Norman_Aligned_(D=640)_concat": (
+        "AIDO.Cell 100M - Norman",
+        "Gene Target",
+    ),
+    "gene_targets_confidence_name_only": ('Targets Weighted (Name)', "Gene Target"),
+    "gene_targets_confidence_with_pubchem": ('Targets Weighted (Name, PubChem)', "Gene Target"),
+    "gene_targets_binary_name_only": ('Targets Binary (Name)', "Gene Target"),
+    "gene_targets_binary_with_pubchem": ('Targets Binary (Name, PubChem)', "Gene Target"),
+    
+    # Positive Controls
+    "pca": ("Idealized Baseline", "Positive Control"),
+    "experimental_error": ("Experimental Error", "Positive Control"),
+
+    # Fusion
+    "Fusion_tahoe_deg_14_01_2026": ("Simple Fusion", "Fusion"),
+
+}
+
+''' Fine Tuning '''
+fig_index['fine_tuning'] = {
+
+    # Negative controls
+    "context mean baseline": ("Train Mean", "Negative Control"),
+    "no change baseline": ("No Change", "Negative Control"),
+
+    # Cell models
+    "knn_baseline_AIDOcell_3M_essential_K-562_2025_11_26_(D=128)": ("AIDO.Cell 3M Frozen + kNN", "Expression"),
+    'AIDO.Cell 3M (fine-tuned, frozen backbone)': ('AIDO.Cell 3M Frozen + MLP', 'Expression'),
+    'AIDO.Cell 3M (fine-tuned, indexing mode)': ('AIDO.Cell 3M Fine-Tuning (Indexing)', 'Expression'),
+    'AIDO.Cell 3M (fine-tuned, InSilicoKO)': ('AIDO.Cell 3M Fine-Tuning (In-Silico KO)', 'Expression'),
+
+    # Network models
+    'Supervised_Finetuned_Simple_GNN': ('STRING GNN Fine-Tuning', 'Network'),
+    'knn_baseline_GNN_Simple_Official_(D=256)': ('STRING GNN Frozen + kNN', 'Network'),
+    
+    # Positive controls
+    "Experimental error (quantile 0.9)": ("Experimental Error", "Positive Control"),
+    "knn_baseline_pca": ("Idealized Baseline", "Positive Control"),
+
+}
+
+''' Fusion '''
+fig_index['fusion'] = {
+
+    # Negative controls
+    "context mean baseline": ("Train Mean", "Negative Control"),
+    "no change baseline": ("No Change", "Negative Control"),
+    "knn_baseline_PCA_Fair_essential_CELL_LINE_controls_(D=128)": ("PCA", "Negative Control"),
+    
+    # Prior knowledge
+    'knn_baseline_KG_WaveGC_G_StringDB_combined_0.0_(D=128)': ('STRING WaveGC', 'Prior Knowledge'),
+
+    # Fusion
+    "Final Simple Fusion": ("Fusion (Simple)", "Fusion"),
+    "Final Full Fusion": ("Fusion (Full)", "Fusion"),
+
+    # Positive controls
+    "Experimental error (quantile 0.9)": ("Experimental Error", "Positive Control"),
+    "knn_baseline_pca": ("Idealized Baseline", "Positive Control"),
+
+}
+
+''' metric consistency '''
+fig_index['metric_consistency'] = {
+
+    # Expression
+    "knn_baseline_AIDO.Cell_3M_positional_(D=128)": ("Positional", "Expression"),
+    "knn_baseline_AIDOcell_3M_essential_CELL_LINE_2025_11_26_(D=128)": ("AIDOcell 3M (Essential controls)", "Expression"),
+    "knn_baseline_AIDOcell_10M_essential_CELL_LINE_2025_11_26_(D=256)": ("AIDOcell 10M (Essential controls)", "Expression"),
+    "knn_baseline_AIDOcell_100M_essential_CELL_LINE_2025_11_26_(D=640)": ("AIDOcell 100M (Essential controls)", "Expression"),
+    "knn_baseline_TranscriptFormer_essential_CELL_LINE_controls_(D=2048)": ("TranscriptFormer (Essential controls)", "Expression"),
+    "knn_baseline_scGPT_essential_CELL_LINE_controls_(D=512)": ("scGPT (Essential controls)", "Expression"),
+    "knn_baseline_Geneformer_essential_CELL_LINE_controls_(D=512)": ("Geneformer (Essential controls)", "Expression"),
+    "knn_baseline_scPRINT_essential_CELL_LINE_controls_(D=512)": ("scPRINT (Essential controls)", "Expression"),
+
+    # DNA
+    "knn_baseline_AIDOdna_(D=4352)": ("AIDO.DNA", "DNA"),
+
+    # Protein
+    "knn_baseline_AIDOprot_first_(D=384)": ("AIDOprot_first", "Protein"),
+    "knn_baseline_AIDOprot_mean_(D=384)": ("AIDOprot_mean", "Protein"),
+    "knn_baseline_AIDOprot_seq+struct_(D=1024)": ("AIDOprot_seq+struct", "Protein"),
+    "knn_baseline_ESM2_(D=1280)": ("ESM2", "Protein"),
+    "knn_baseline_RAG-16B_Human_Protein_Embedding_with_structure_mean_pooled_(D=2304)": ("AIDO.ProteinRAG 16B (with structure)", "Protein"),
+    "knn_baseline_RAG-16B_Human_Protein_Embedding_without_structure_mean_pooled_(D=2304)": ("AIDO.ProteinRAG 16B (without structure)", "Protein"),
+    "knn_baseline_STRING_sequence_(D=1024)": ("STRING_sequence", "Protein"),
+
+    # Prior Knowledge (network)
+    "knn_baseline_KG_NBFNet_GFC_0.6_(D=128)": ("KG_NBFNet_GFC_0.6", "Prior Knowledge"),
+    "knn_baseline_KG_NBFNet_GF_0.6_(D=128)": ("KG_NBFNet_GF_0.6", "Prior Knowledge"),
+    "knn_baseline_KG_NBFNet_G_0.6_(D=128)": ("KG_NBFNet_G_0.6", "Prior Knowledge"),
+    "knn_baseline_KG_NBFNet_G_StringDB_combined_0.6_(D=128)": ("KG_NBFNet_G_StringDB_combined_0.6", "Prior Knowledge"),
+    "knn_baseline_KG_NBFNet_G_predicted_0.6_(D=128)": ("KG_NBFNet_G_predicted_0.6", "Prior Knowledge"),
+    "knn_baseline_KG_WaveGC_G_0.4_(D=128)": ("KG_WaveGC_G_0.4", "Prior Knowledge"),
+    "knn_baseline_KG_WaveGC_G_0.6_(D=128)": ("KG_WaveGC_G_0.6", "Prior Knowledge"),
+    "knn_baseline_KG_WaveGC_G_0.8_(D=128)": ("KG_WaveGC_G_0.8", "Prior Knowledge"),
+    "knn_baseline_STRING_Spectral_Medium_Conf_(D=128)": ("STRING_Spectral_Medium_Conf", "Prior Knowledge"),
+    "knn_baseline_STRING_network_(D=512)": ("STRING_network", "Prior Knowledge"),
+
+    # Prior Knowledge (LM)
+    "knn_baseline_scGenePT_GO_BP_(D=1536)": ("scGenePT (GO_BP)", "Prior Knowledge"),
+    "knn_baseline_scGenePT_GO_CC_(D=1536)": ("scGenePT (GO_CC)", "Prior Knowledge"),
+    "knn_baseline_scGenePT_GO_MF_(D=1536)": ("scGenePT (GO_MF)", "Prior Knowledge"),
+    "knn_baseline_scGenePT_GO_all_(D=1536)": ("scGenePT (GO_all)", "Prior Knowledge"),
+    "knn_baseline_scGenePT_NCBI+UniProt_(D=1536)": ("scGenePT (NCBI+UniProt)", "Prior Knowledge"),
+    "knn_baseline_scGenePT_NCBI_(D=1536)": ("scGenePT (NCBI)", "Prior Knowledge"),
+
+    # Prior Knowledge (other)
+    "knn_baseline_DepMap_Gene_Effect_(D=318)": ("DepMap (gene effect)", "Prior Knowledge"),
+    "knn_baseline_GenotypeVAE_(D=256)": ("GenotypeVAE", "Prior Knowledge"),
+}
+
+# palette = sns.color_palette("deep")
+palette = ["#729ECEFF", "#FF9E4AFF", "#67BF5CFF", "#ED665DFF", "#AD8BC9FF", "#A8786EFF", "#ED97CAFF", "#A2A2A2FF", "#CDCC5DFF", "#6DCCDAFF"]
+fig_index['genes_model_type_palette'] = {
+    "Negative Control": palette[0],
+    "Positive Control": palette[1],
+    "Expression": palette[2],
+    "DNA": palette[3],
+    "Protein": palette[4],
+    "Prior Knowledge": palette[5],
+    "Network": palette[5],
+    "Fusion": palette[6],
+    "Advanced": palette[9],
+}
+
+fig_index['genes_hue_order'] = [
+    "Negative Control",
+    "Positive Control",
+    "Expression",
+    "DNA",
+    "Protein",
+    "Prior Knowledge",
+    "Fusion",
+    "Advanced",
+]
+
+fig_index['drugs_model_type_palette'] = {
+    "Negative Control": palette[0],
+    "Positive Control": palette[1],
+    "LLM": palette[2],
+    "SMILES Transformer": palette[3],
+    "Molecule Structure": palette[4],
+    "Protein Affinity": palette[5],
+    "Fusion": palette[6],
+    "Gene Target": palette[8],
+}
+
+fig_index['drugs_hue_order'] = [
+    "Negative Control",
+    "Positive Control",
+    "LLM",
+    "SMILES Transformer",
+    "Molecule Structure",
+    "Protein Affinity",
+    "Gene Target",
+    "Fusion",
+]
+
+fig_index["mpl_params"] = {
+    "figure.dpi": 120,
+    "font.family": "sans-serif",
+    "font.sans-serif": [
+        "Source Sans Pro",
+        "Inter",
+        "Source Sans 3",
+        "Noto Sans",
+        "DejaVu Sans",
+    ],
+    "font.size": 11,
+    "xtick.labelsize": 10,
+    "ytick.labelsize": 10,
+    "legend.fontsize": 10,
+    "axes.spines.top": False,
+    "axes.spines.right": False,
+    "axes.linewidth": 1.0,
+    "axes.grid": True,
+    "axes.grid.axis": "y",
+    "grid.alpha": 0.6,
+    "grid.linewidth": 0.8,
+    "lines.linewidth": 2.0,
+    "xtick.direction": "inout",
+    "ytick.direction": "inout",
+    "xtick.major.size": 6,
+    "ytick.major.size": 6,
+    "xtick.minor.size": 3,
+    "ytick.minor.size": 3,
+    "xtick.major.width": 0.8,
+    "ytick.major.width": 0.8,
+    "xtick.minor.width": 0.6,
+    "ytick.minor.width": 0.6,
+    "xtick.minor.visible": True,
+    "ytick.minor.visible": False,
+    "ytick.left": False,
+    "xtick.bottom": True,
+    "xtick.labelbottom": True,
+    "xtick.color": "0.35",
+    "ytick.color": "0.35",
+    "xtick.labelcolor": "0.35",
+    "ytick.labelcolor": "0.35",
+    "axes.labelcolor": "0.35",
+    "axes.titlecolor": "0.35",
+    "axes.edgecolor": "0.2",
+    "axes.linewidth": 1.0,
+    "legend.frameon": True,
+    "legend.edgecolor": "none",
+    "legend.loc": "upper left",
+    "legend.fontsize": 10,
+    "legend.facecolor": "white",
+    "legend.handlelength": 2.0,
+    "legend.handletextpad": 0.6,
+    "legend.borderaxespad": 0.4,
+    "legend.handlelength": 1.5,
+    "legend.handleheight": 1.5,
+}
+
+with open('./fig_index.json', 'w') as f:
+    json.dump(fig_index, f, indent=4)

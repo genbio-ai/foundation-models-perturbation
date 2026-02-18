@@ -1,0 +1,21 @@
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#00ff00"
+    background: "#ffffff"
+    canvasBkg: "#ffffff"
+    mainBkg: "#ffffff"
+---
+graph TB
+    smallmol[Small Molecule] --> smiles[SMILES]
+    smiles --> struct[Structure Encoder]
+    struct --> struct_emb[Structure Embedding]
+
+    smallmol --> targ[Target]
+    targ --> fm[Gene or Protein FM]
+    fm --> targ_emb[Target Embedding]
+
+    smallmol --> text[Text Description]
+    text --> llm[LLM]
+    llm --> text_emb[Text Embedding]

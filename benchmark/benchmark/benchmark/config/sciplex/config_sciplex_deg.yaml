@@ -1,0 +1,26 @@
+model: 
+  C: 1e5
+  balance_loss: true
+estimator_name: logistic_regression
+task_name: "expression/pert-prediction-sciplex3-deg"
+
+hydra:
+  sweeper:
+    max_batch_size: 20
+    params:
+      +fold_id: 0,1,2,3,4
+      +cell_line: "'MCF7','A549','K562'"
+      +emb_name: "
+        'random',
+        'pca',
+        'ChemBERTa-77M-MLM',
+        'ChemBERTa-77M-MTR',
+        'avalon',
+        'cats2D',
+        'cats3D',
+        'chatgpt',
+        'erg',
+        'fcfp',
+        'maccs',
+        'secfp',
+        'topological'"

@@ -1,0 +1,10 @@
+emb_name: 'random'
+task_name: "expression/pert-prediction-essential-regression-all-perturbations"
+
+hydra:
+  sweeper:
+    max_batch_size: 20
+    params:
+      +fold_id: 0,1,2,3,4
+      +cell_line: "'K-562','Hep-G2','Jurkat','hTERT-RPE1'"
+      +estimator_name: "'context mean','no change'"

@@ -1,0 +1,2 @@
+from .pseudobulk_regression import PseudobulkRegressionTask
+from .deg_classification import DEGClassificationTask

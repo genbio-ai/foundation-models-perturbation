@@ -1,0 +1,334 @@
+datamodule:
+  condition_encoders:
+    - _target_: data.encoders.TensorLabelEncoder
+      key_added: "cell_line_label"
+      required_key: "cell_line"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "AIDOcell_100M_Norman_Aligned_(D=640)_concat"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "AIDOcell_100M_Norman_Aligned_(D=640)_concat"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "gene_targets_confidence_with_pubchem"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "gene_targets_confidence_with_pubchem"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "gin_supervised_contextpred"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "gin_supervised_contextpred"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "gin_supervised_edgepred"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "gin_supervised_edgepred"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "maccs"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "maccs"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "MiniMol"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "MiniMol"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "MolT5"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "MolT5"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "avalon"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "avalon"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "boltz_affinity_pred_value_fragment"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "boltz_affinity_pred_value_fragment"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "boltz_affinity_pred_value_protein"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "boltz_affinity_pred_value_protein"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "boltz_affinity_probability_binary_fragment"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "boltz_affinity_probability_binary_fragment"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "boltz_affinity_probability_binary_protein"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "boltz_affinity_probability_binary_protein"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "cactvs"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "cactvs"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "cats2d"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "cats2d"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "chatgpt"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "chatgpt"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "ChemBERTa-77M-MLM"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "ChemBERTa-77M-MLM"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "ChemBERTa-77M-MTR"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "ChemBERTa-77M-MTR"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "desc2D"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "desc2D"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "ecfp:2"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "ecfp:2"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "ecfp:4"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "ecfp:4"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "secfp"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "secfp"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "erg"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "erg"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "estate"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "estate"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "topological"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "topological"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "fcfp"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "fcfp"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "gene_targets_binary_name_only"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "gene_targets_binary_name_only"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "gene_targets_binary_with_pubchem"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "gene_targets_binary_with_pubchem"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "gene_targets_confidence_name_only"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "gene_targets_confidence_name_only"
+    - _target_: data.encoders.TensorPrecomputedEmbedding
+      key_added: "unimol2-570m-H"
+      required_key: "pubchem_cid"
+      adata_path: "tahoe/tahoe_drug_embeddings.h5ad"
+      embedding_name: "unimol2-570m-H"
+      
+
+
+
+fusion_model:
+  input_transforms:
+    - _target_: model.input.LinearInputTransform
+      input_dim: 1920
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "AIDOcell_100M_Norman_Aligned_(D=640)_concat"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 519
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "gene_targets_confidence_with_pubchem"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 300
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "gin_supervised_contextpred"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 300
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "gin_supervised_edgepred"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 167
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "maccs"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 512
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "MiniMol"
+      normalize_type: "none"      
+    - _target_: model.input.LinearInputTransform
+      input_dim: 1024
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "MolT5"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 2000
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "avalon"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 1000
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "boltz_affinity_pred_value_fragment"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 800
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "boltz_affinity_pred_value_protein"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 1000
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "boltz_affinity_probability_binary_fragment"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 800
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "boltz_affinity_probability_binary_protein"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 881
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "cactvs"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 189
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "cats2d"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 1536
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "chatgpt"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 384
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "ChemBERTa-77M-MLM"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 384
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "ChemBERTa-77M-MTR"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 223
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "desc2D"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 2000
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "ecfp:2"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 2000
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "ecfp:4"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 2000
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "secfp"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 315
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "erg"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 79
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "estate"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 2000
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "topological"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 2000
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "fcfp"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 511
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "gene_targets_binary_name_only"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 519
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "gene_targets_binary_with_pubchem"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 511
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "gene_targets_confidence_name_only"
+      normalize_type: "none"
+    - _target_: model.input.LinearInputTransform
+      input_dim: 1536
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "unimol2-570m-H"
+      normalize_type: "none"
+    - _target_: model.input.EmbeddingInputTransform
+      num_embeddings: 45
+      embedding_dim: ${d_model}
+      input_key: "cell_line_label"

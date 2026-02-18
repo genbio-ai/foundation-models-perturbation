@@ -1,0 +1,363 @@
+
+datamodule:
+  condition_encoders:
+    - _target_: data.encoders.TensorLabelEncoder
+      key_added: "cell_line_label"
+      required_key: "cell_line"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "AIDOdna_(D=4352)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/AIDOdna_(D=4352).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "AIDOprot_mean_(D=384)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/AIDOprot_mean_(D=384).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "AIDOprot_seq+struct_(D=1024)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/AIDOprot_seq+struct_(D=1024).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "ESM2_(D=1280)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/ESM2_(D=1280).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "RAG-16B_Human_Protein_Embedding_with_structure_mean_pooled_(D=2304)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/RAG-16B_Human_Protein_Embedding_with_structure_mean_pooled_(D=2304).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "RAG-16B_Human_Protein_Embedding_without_structure_mean_pooled_(D=2304)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/RAG-16B_Human_Protein_Embedding_without_structure_mean_pooled_(D=2304).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "STRING_sequence_(D=1024)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/STRING_sequence_(D=1024).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "TranscriptFormer_essential_Hep-G2_controls_(D=2048)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/TranscriptFormer_essential_Hep-G2_controls_(D=2048).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "Geneformer_essential_Hep-G2_controls_(D=512)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/Geneformer_essential_Hep-G2_controls_(D=512).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "AIDO.Cell_3M_positional_(D=128)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/AIDO.Cell_3M_positional_(D=128).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "AIDO.Cell_10M_positional_(D=256)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/AIDO.Cell_10M_positional_(D=256).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "AIDO.Cell_100M_positional_(D=640)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/AIDO.Cell_100M_positional_(D=640).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "AIDOcell_3M_essential_Hep-G2_2025_11_26_(D=128)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/AIDOcell_3M_essential_Hep-G2_2025_11_26_(D=128).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "AIDOcell_10M_essential_Hep-G2_2025_11_26_(D=256)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/AIDOcell_10M_essential_Hep-G2_2025_11_26_(D=256).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "AIDOcell_100M_essential_Hep-G2_2025_11_26_(D=640)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/AIDOcell_100M_essential_Hep-G2_2025_11_26_(D=640).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "scGPT_essential_Hep-G2_controls_(D=512)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/scGPT_essential_Hep-G2_controls_(D=512).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "scPRINT_essential_Hep-G2_controls_(D=512)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/scPRINT_essential_Hep-G2_controls_(D=512).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "scGenePT_GO_BP_(D=1536)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/scGenePT_GO_BP_(D=1536).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "scGenePT_GO_CC_(D=1536)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/scGenePT_GO_CC_(D=1536).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "scGenePT_GO_MF_(D=1536)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/scGenePT_GO_MF_(D=1536).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "scGenePT_GO_all_(D=1536)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/scGenePT_GO_all_(D=1536).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "scGenePT_NCBI+UniProt_(D=1536)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/scGenePT_NCBI+UniProt_(D=1536).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "scGenePT_NCBI_(D=1536)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/scGenePT_NCBI_(D=1536).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "DepMap_Gene_Effect_(D=318)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/DepMap_Gene_Effect_(D=318).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "GenotypeVAE_(D=256)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/GenotypeVAE_(D=256).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "KG_WaveGC_G_StringDB_combined_0.0_(D=128)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/KG_WaveGC_G_StringDB_combined_0.0_(D=128).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "GNN_Simple_Official_(D=256)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/GNN_Simple_Official_(D=256).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "STRING_Spectral_Medium_Conf_(D=128)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/STRING_Spectral_Medium_Conf_(D=128).h5ad"
+
+    - _target_: data.encoders.TensorPrecomputedOptionalEmbedding
+      key_added: "STRING_network_(D=512)"
+      required_key: "gene_id"
+      adata_path: "gene_embeddings/STRING_network_(D=512).h5ad"
+
+fusion_model:
+  input_transforms:
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 4352
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "AIDOdna_(D=4352)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 384
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "AIDOprot_mean_(D=384)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 1024
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "AIDOprot_seq+struct_(D=1024)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 1280
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "ESM2_(D=1280)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 2304
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "RAG-16B_Human_Protein_Embedding_with_structure_mean_pooled_(D=2304)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 2304
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "RAG-16B_Human_Protein_Embedding_without_structure_mean_pooled_(D=2304)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 1024
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "STRING_sequence_(D=1024)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 2048
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "TranscriptFormer_essential_Hep-G2_controls_(D=2048)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 512
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "Geneformer_essential_Hep-G2_controls_(D=512)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 128
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "AIDO.Cell_3M_positional_(D=128)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 256
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "AIDO.Cell_10M_positional_(D=256)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 640
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "AIDO.Cell_100M_positional_(D=640)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 128
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "AIDOcell_3M_essential_Hep-G2_2025_11_26_(D=128)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 256
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "AIDOcell_10M_essential_Hep-G2_2025_11_26_(D=256)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 640
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "AIDOcell_100M_essential_Hep-G2_2025_11_26_(D=640)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 512
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "scGPT_essential_Hep-G2_controls_(D=512)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 512
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "scPRINT_essential_Hep-G2_controls_(D=512)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 1536
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "scGenePT_GO_BP_(D=1536)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 1536
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "scGenePT_GO_CC_(D=1536)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 1536
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "scGenePT_GO_MF_(D=1536)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 1536
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "scGenePT_GO_all_(D=1536)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 1536
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "scGenePT_NCBI+UniProt_(D=1536)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 1536
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "scGenePT_NCBI_(D=1536)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 318
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "DepMap_Gene_Effect_(D=318)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 256
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "GenotypeVAE_(D=256)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 128
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "KG_WaveGC_G_StringDB_combined_0.0_(D=128)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 256
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "GNN_Simple_Official_(D=256)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 128
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "STRING_Spectral_Medium_Conf_(D=128)"
+    - _target_: model.input.LinearInputTransform
+      normalize_type: "none"
+      dropout: 0.1
+      input_dim: 512
+      output_dim: ${d_model}
+      use_layer_norm: ${use_layer_norm}
+      input_key: "STRING_network_(D=512)"
+
+    - _target_: model.input.EmbeddingInputTransform
+      num_embeddings: 4
+      dropout: 0.1
+      embedding_dim: ${d_model}
+      input_key: "cell_line_label"

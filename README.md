@@ -1,4 +1,6 @@
-# Code for "Foundation Models Improve Perturbation Response Prediction"
+# Code for ["Foundation Models Improve Perturbation Response Prediction"](https://www.biorxiv.org/content/10.64898/2026.02.18.706454v1)
+
+The paper can be found [here](https://www.biorxiv.org/content/10.64898/2026.02.18.706454v1). 
 
 ## Embedding Benchmarking Experiments
 

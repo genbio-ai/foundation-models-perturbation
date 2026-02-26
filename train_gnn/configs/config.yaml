@@ -1,0 +1,66 @@
+# GNN Training Configuration
+
+# Debug mode - skips validation and train/test split for quick overfitting tests
+debug_mode: false
+
+# Random seed
+seed: 42
+
+# Graph path
+graph_path: "graph.txt"
+
+# Use edge weights from combined_score column (only works with GCN, ignored by GIN)
+use_weights: true
+graph_thresh: 700
+
+# Data configuration
+data:
+  val_ratio: 0.1  # 10% validation set
+
+# Model configuration
+model:
+  dim: 128
+  num_layers: 3
+  dropout: 0.1
+  layer_type: "gcn"  # "gin" or "gcn"
+
+# Training configuration
+training:
+  num_epochs: 120
+  lr: 0.001
+  weight_decay: 0.0
+  patience: 10
+  loss_type: "link_prediction"
+  grad_norm_clip: 1.0  # Gradient norm clipping (null to disable)
+
+# Random walk configuration (used when loss_type="random_walk")
+random_walk:
+  walk_length: 80
+  context_size: 10
+  p: 1.0
+  q: 1.0
+  walks_per_node: 1
+  num_negative_samples: 1
+  num_workers: 4
+  batch_size: 1024
+
+# Link prediction configuration (used when loss_type="link_prediction")
+link_prediction:
+  batch_size: 4096
+  num_negative_samples: 1
+
+# Save directory
+save_dir: "saved_models"
+
+# Weights & Biases logging
+wandb:
+  enabled: true
+  project: null
+  entity: null
+  name: null  # Run name (auto-generated if null)
+
+# Hydra configuration - disable outputs/ folder
+hydra:
+  output_subdir: null
+  run:
+    dir: .

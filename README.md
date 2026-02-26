@@ -10,6 +10,10 @@ Code to reproduce our embedding benchmarking expreiments (including multimodal f
 
 Code to reproduce our cross-context experiments (including comparisons to STATE) can be found in `cross_context`. See `cross_context/README.md` for details. 
 
+## GNN-Based Pretraining
+
+Code to reproduce the `STRING GNN` embeddings can be found in `train_gnn`. See `train_gnn/README.md` for details. 
+
 ## Figures
 
 In `results` we provide pre-computed results and code to generate the figures in our paper. 

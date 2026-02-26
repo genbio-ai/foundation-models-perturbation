@@ -1,0 +1,22 @@
+# @package _global_
+# Diffusion (DDPM) experiment config
+# Usage: python run.py +experiment=diffusion data_path=... embeddings_path=...
+
+model_type: diffusion
+
+dit:
+  in_channels: 2       # noise channel + source cell channel
+  out_channels: null    # same as in_channels
+  z_emb_dim: 128
+
+diffusion:
+  timesteps: 1000
+  sampling_timesteps: 250
+  objective: "pred_noise"
+  beta_schedule: "cosine"
+  ddim_sampling: false
+
+training:
+  scheduler: "cosine"
+
+results_dir: "./results-diffusion"

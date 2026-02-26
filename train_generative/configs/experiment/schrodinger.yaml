@@ -1,0 +1,20 @@
+# @package _global_
+# Schrodinger Bridge experiment config
+# Usage: python run.py +experiment=schrodinger data_path=... embeddings_path=...
+
+model_type: schrodinger
+
+dit:
+  in_channels: 1
+  out_channels: 2     # velocity + score (split in half)
+  z_emb_dropout: 0.1
+
+schrodinger:
+  sigma: 1.0
+  use_sde_sampling: true
+  sampling_timesteps: 250
+
+training:
+  scheduler: "constant_with_warmup"
+
+results_dir: "./results-schrodinger"

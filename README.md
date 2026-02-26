@@ -14,6 +14,10 @@ Code to reproduce our cross-context experiments (including comparisons to STATE)
 
 Code to reproduce the `STRING GNN` embeddings can be found in `train_gnn`. See `train_gnn/README.md` for details. 
 
+## Generative Model Training
+
+Code to train minimal generative models (Flow Matching, Latent Diffusion, Schrodinger Bridge) for perturbation prediction can be found in `train_generative`. See `train_generative/README.md` for details. 
+
 ## Figures
 
 In `results` we provide pre-computed results and code to generate the figures in our paper. 

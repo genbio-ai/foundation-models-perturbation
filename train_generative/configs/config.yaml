@@ -1,0 +1,78 @@
+# Master config for train_diffusion
+# Override any value from CLI: python run.py training.epochs=50 pca_dim=30
+# Use experiment configs: python run.py +experiment=diffusion
+
+defaults:
+  - _self_
+
+# ----- Data -----
+data_path: null             # path to .h5ad file (required)
+embeddings_path: null       # path to gene embeddings pickle (required)
+cell_line: "K-562"          # cell line name in adata.obs['cell_line']
+val_fraction: 0.1           # fraction of perturbation genes held out for validation
+
+# ----- Model -----
+model_type: "flow"          # diffusion | flow | schrodinger
+pca_dim: 50
+
+dit:
+  depth: 4
+  hidden_size: 128
+  num_heads: 4
+  in_channels: 1            # 1 for flow, 2 for diffusion; set by experiment config
+  out_channels: null         # null = same as in_channels; 2 for schrodinger
+  z_emb_dim: 128
+  z_emb_dropout: 0.1
+  attention_dropout: 0.0
+  projection_dropout: 0.0
+  mlp_dropout: 0.0
+
+# ----- Diffusion-specific -----
+diffusion:
+  timesteps: 1000
+  sampling_timesteps: 250
+  objective: "pred_noise"    # pred_noise | pred_x0 | pred_v
+  beta_schedule: "cosine"    # linear | cosine | sqrt
+  ddim_sampling: false
+
+# ----- Flow-specific -----
+flow:
+  sampling_timesteps: 250
+  step_size: 0.05
+
+# ----- Schrodinger-specific -----
+schrodinger:
+  sigma: 1.0
+  use_sde_sampling: true
+  sampling_timesteps: 250
+
+# ----- Training -----
+training:
+  epochs: 100
+  batch_size: 256
+  lr: 1e-3
+  weight_decay: 1e-4
+  betas: [0.9, 0.999]
+  max_grad_norm: 1.0
+  ema_decay: 0.995
+  patience: 10
+  eval_freq: 1
+  save_freq: 100
+  scheduler: "cosine"        # cosine | constant_with_warmup
+  warmup_ratio: 0.001
+
+# ----- Misc -----
+seed: 42
+results_dir: "./results"
+
+wandb:
+  enabled: false
+  project: "train-diffusion"
+  entity: null
+  name: null
+
+# Prevent Hydra from creating output directories
+hydra:
+  output_subdir: null
+  run:
+    dir: .

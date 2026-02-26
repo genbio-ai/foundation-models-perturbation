@@ -10,9 +10,13 @@ In particular, this code can be used to reproduce the `STRING GNN` embeddings an
 pip install torch torch_geometric hydra-core omegaconf wandb tqdm numpy
 ```
 
-## Quick Start
+## Data
 
 The graph we used can be found on [HuggingFace](https://huggingface.co/datasets/genbio-ai/foundation-models-perturbation/blob/main/gnn/9606.protein.links.ensembl_900_keep20_adaptive.txt).
+
+This is a filtered version of the original STRINGdb graph from [here](https://stringdb-downloads.org/download/protein.links.detailed.v12.0/9606.protein.links.detailed.v12.0.txt.gz). The filtering logic can be found in `train_gnn/filter_by_score_adaptive.py`. 
+
+## Quick Start
 
 ```bash
 # Basic run with defaults

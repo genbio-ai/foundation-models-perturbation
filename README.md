@@ -24,6 +24,10 @@ For more details:
 ## Abstract
 Predicting cellular responses to genetic or chemical perturbations has been a long-standing goal in biology. Recent applications of foundation models to this task have yielded contradictory results regarding their superiority over simple baselines. We conducted an extensive analysis of over 600 different models across various prediction tasks and evaluation metrics, demonstrating that while some foundation models fail to outperform simple baselines, others significantly improve predictions for both genetic and chemical perturbations. Furthermore, we developed and evaluated methods for integrating multiple foundation models for perturbation prediction. Our results show that with sufficient data, these models approach fundamental performance limits, confirming that foundation models can improve cellular response simulations. 
 
+## Data and Embeddings
+
+Preprocessed data and embeddings are available on [HuggingFace](https://huggingface.co/datasets/genbio-ai/foundation-models-perturbation/tree/main).
+
 ## Embedding Benchmarking Experiments
 
 Code to reproduce our embedding benchmarking expreiments (including multimodal fusion experiments) can be found in `benchmark`. See `benchmark/README.md` for details. 

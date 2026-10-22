@@ -4,6 +4,8 @@
 
 *Foundation Models Improve Perturbation Response Prediction* is a large-scale analysis of biological foundation models in the context of perturbation response prediction. This work was conducted by [GenBio AI](https://genbio.ai/).
 
+Update (2026/10/22): [The paper has been updated and expanded](https://www.biorxiv.org/content/10.64898/2026.02.18.706454v2) but this repository has not yet been updated to match. 
+
 In this work, we:
 * Analyze over 600 models.
 * Consider both chemical and genetic perturbation datasets.
@@ -19,7 +21,7 @@ Key findings include:
 
 For more details:
 * [GenBio AI Blog Post](https://genbio.ai/foundation-models-improve-perturbation-response-prediction/)
-* [Paper](https://www.biorxiv.org/content/10.64898/2026.02.18.706454v1)
+* [Paper](https://www.biorxiv.org/content/10.64898/2026.02.18.706454v2)
 
 ## Abstract
 Predicting cellular responses to genetic or chemical perturbations has been a long-standing goal in biology. Recent applications of foundation models to this task have yielded contradictory results regarding their superiority over simple baselines. We conducted an extensive analysis of over 600 different models across various prediction tasks and evaluation metrics, demonstrating that while some foundation models fail to outperform simple baselines, others significantly improve predictions for both genetic and chemical perturbations. Furthermore, we developed and evaluated methods for integrating multiple foundation models for perturbation prediction. Our results show that with sufficient data, these models approach fundamental performance limits, confirming that foundation models can improve cellular response simulations. 
